@@ -12,8 +12,8 @@ function newGraph(toggleRangeSelector) {
 	var animatedZooms;
 
 	if (typeof graph == 'undefined') {
-		end = new Date();
-		start = new Date().setDate(end.getDate() - 1);
+		end = new Date().getTime();
+		start = new Date().getTime() - 1000 * 60 * 60 * 24;
 		showRangeSelector = false;
 		rollPeriod = 1;
 		animatedZooms = true;
