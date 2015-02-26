@@ -1,0 +1,113 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="description"
+			content="VMware View - pool usage statistics">
+		<meta name="author"
+			content="Paul Jähne">
+
+		<title>Pool usage statistics</title>
+
+		<script type="text/javascript"
+			src="dygraph-combined.js"></script>
+		<script type="text/javascript"
+			src="graph.js"></script>
+
+		<link rel="stylesheet"
+			type="text/css"
+			href="style.css" />
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="graphDiv"></div>
+
+			<div id="options">
+				<div id="radioGroupDiv"
+					style="width:100%; height:3%;">
+					<input type="radio"
+						name="pools"
+						id="fulldesktop"
+						value="fulldesktop"
+						checked="checked"
+						onchange="graph = newGraph();" />
+					<label for="desktoppool">fulldesktop</label>
+
+					<input type="radio"
+						name="pools"
+						id="desktoppool"
+						value="desktoppool"
+						onchange="graph = newGraph();" />
+					<label for="desktoppool">desktoppool</label>
+
+					<input type="radio"
+						name="pools"
+						id="performancepool"
+						value="performancepool"
+						onchange="graph = newGraph();" />
+					<label for="performancepool">performancepool</label>
+
+					<input type="radio"
+						name="pools"
+						id="performancepool32bit"
+						value="performancepool32bit"
+						onchange="graph = newGraph();" />
+					<label for="performancepool32bit">performancepool32bit</label>
+
+					<input type="radio"
+						name="pools"
+						id="grouppool"
+						value="grouppool"
+						onchange="graph = newGraph();" />
+					<label for="grouppool">grouppool</label>
+				</div>
+				<br />
+				<div id="zoomButtons">
+					<input type="button"
+						name="toggle"
+						id="toggle"
+						value="toggle range selector"
+						onClick="toggleRangeSelector();" />
+
+					Zoom:
+					<input type="button"
+						id="day"
+						value="day"
+						onClick="zoom(24 * 60 * 60 * 1000);" />
+
+					<input type="button"
+						id="week"
+						value="week"
+						onClick="zoom(7 * 24 * 60 * 60 * 1000);" />
+
+					<input type="button"
+						id="month"
+						value="month"
+						onClick="zoom(30 * 24 * 60 * 60 * 1000);" />
+
+					<input type="button"
+						id="reset"
+						value="reset"
+						onClick="resetZoom();" />
+
+					<input type="date" id="dateStart" />
+					<input type="date" id="dateEnd" />
+					<input type="button"
+						name="go"
+						id="go"
+						value="go"
+						onClick="dateInput();" />
+					<span>example date: 2014-12-03T03:24:00<span>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			// global variables
+			var graph = newGraph();
+			var zooming = false; // used to block subsequent zooms when one is already active
+
+			// update the data periodically
+			window.intervalId = window.setInterval(updateData, 60 * 1000);
+		</script>
+	</body>
+</html>

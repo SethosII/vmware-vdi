@@ -1,0 +1,42 @@
+html, body {
+	font-family: sans-serif, Arial;
+	height: 100%;
+	margin: 0; padding: 0;
+}
+
+#wrapper {
+	display: flex;
+	min-height: 100%;
+	flex-direction: column;
+}
+
+#graphDiv {
+	flex: 1;
+}
+
+#options{
+	height: 50px;
+}
+
+/* Title */
+.dygraph-label.dygraph-title {
+	font-size: 24px;
+}
+/* x-axis label */
+.dygraph-label.dygraph-xlabel {
+}
+/* y-axis label */
+.dygraph-label.dygraph-ylabel {
+}
+/* y2-axis label */
+.dygraph-label.dygraph-y2label {
+}
+/* x-axis */
+.dygraph-axis-label.dygraph-axis-label-x {
+}
+/* y-axis */
+.dygraph-axis-label.dygraph-axis-label-y {
+}
+/* y2-axis */
+.dygraph-axis-label.dygraph-axis-label-y.dygraph-axis-label-y2 {
+}
