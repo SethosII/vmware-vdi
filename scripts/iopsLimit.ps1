@@ -17,7 +17,8 @@ $file = $folder + "scripts\iopsLimits.csv"
 echo $file
 $diskLimitIOPerSecond = 100
 
-. $folder"scripts\printMatch.ps1" vdidesktop > $file
+"vmName" > $file
+. $folder"scripts\printMatch.ps1" vdidesktop >> $file
 
 Connect-VIServer -Server $vcenter
 
@@ -33,9 +34,9 @@ if ($DiskLimitIOPerSecond -eq "") {
 }
 
 foreach ($group in $vms){
-	$vm = Get-DesktopVM -Name $group.Name
+	$vm = Get-VM -Name $group.Name
 	$spec = New-Object VMware.Vim.VirtualMachineConfigSpec
-	$vm.ExtensionData.Config.Hardware.Device |  where {$_ -is [VMware.Vim.VirtualDisk]} | %{
+	$vm.ExtensionData.Config.Hardware.Device | where {$_ -is [VMware.Vim.VirtualDisk]} | %{
 		$dev = New-Object VMware.Vim.VirtualDeviceConfigSpec
 		$dev.Operation = "edit"
 		$dev.Device = $_
