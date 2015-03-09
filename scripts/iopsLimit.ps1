@@ -21,7 +21,7 @@ $diskLimitIOPerSecond = 100
 
 Connect-VIServer -Server $vcenter
 
-if ($File -eq "") {
+if ($file -eq "") {
 	echo "please specify a file with the vms to apply the limit to, first line has to be vmName"
 	exit
 }
