@@ -14,7 +14,6 @@
 #<name1>
 #<name2>
 $file = $folder + "scripts\iopsLimits.csv"
-echo $file
 $diskLimitIOPerSecond = 100
 
 "vmName" > $file
