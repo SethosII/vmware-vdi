@@ -39,7 +39,8 @@ function newGraph(toggleRangeSelector) {
 		document.getElementById("graphDiv"),
 		selectedPool + ".csv",
 		{
-			labels: ["Date", "Users"],
+			labels: ["Date", "Disconnected", "Connected"],
+			stackedGraph: true,
 			legend: 'always',
 			title: selectedPool + " - concurrent users",
 			dateWindow: [start, end],
@@ -52,9 +53,14 @@ function newGraph(toggleRangeSelector) {
 				var end = graph.xAxisRange()[1];
 				updateDateInput(start, end);
 			},
+			strokeWidth: 0,
+			fillAlpha: 0.8,
 			series: {
-				Users: {
+				Connected: {
 					color: 'rgba(0,88,156,255)'
+				},
+				Disconnected: {
+					color: 'rgba(0,156,88,255)'
 				}
 			}
 		}

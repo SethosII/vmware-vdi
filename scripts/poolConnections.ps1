@@ -8,12 +8,17 @@ $date = Get-Date -UFormat "%Y/%m/%d %T"
 
 foreach ($pool in Get-Pool) {
 	$pool_id = $pool.pool_id
-	$count = (Get-RemoteSession -Pool_id $pool_id -ErrorAction SilentlyContinue | Where {$_.state -eq "CONNECTED"}).Count
-
-	if (!$count) {
-		$count = 0
+	$disconnected = (Get-RemoteSession -Pool_id $pool_id -State "DISCONNECTED" -ErrorAction SilentlyContinue).Count
+	if (!$disconnected) {
+		$disconnected = 0
 	}
-	$output = $date + "," + $count
+
+	$connected = (Get-RemoteSession -Pool_id $pool_id -State "CONNECTED" -ErrorAction SilentlyContinue).Count
+	if (!$connected) {
+		$connected = 0
+	}
+
+	$output = $date + "," + $disconnected + "," + $connected
 
 	Add-Content $folder"poolconnections\"$pool_id.csv "$output" -Encoding "UTF8"
 }
