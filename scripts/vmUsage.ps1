@@ -11,12 +11,14 @@ $sessions += Get-RemoteSession -Pool_id performancepool -ErrorAction SilentlyCon
 $sessions += Get-RemoteSession -Pool_id performancepool32bit -ErrorAction SilentlyContinue
 $sessions += Get-RemoteSession -Pool_id 1zu1panopool -ErrorAction SilentlyContinue
 $sessions += Get-RemoteSession -Pool_id fulldesktop -ErrorAction SilentlyContinue
+$sessions += Get-RemoteSession -Pool_id migratedesktop -ErrorAction SilentlyContinue
 
 $vms = Get-DesktopVM -Pool_id desktoppool
 $vms += Get-DesktopVM -Pool_id performancepool
 $vms += Get-DesktopVM -Pool_id performancepool32bit
 $vms += Get-DesktopVM -Pool_id 1zu1panopool
 $vms += Get-DesktopVM -Pool_id fulldesktop
+$vms += Get-DesktopVM -Pool_id migratedesktop
 
 # somehow not working
 #$sessions = ""
