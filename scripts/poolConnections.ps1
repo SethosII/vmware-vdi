@@ -8,12 +8,12 @@ $date = Get-Date -UFormat "%Y/%m/%d %T"
 
 foreach ($pool in Get-Pool) {
 	$pool_id = $pool.pool_id
-	$disconnected = (Get-RemoteSession -Pool_id $pool_id -State "DISCONNECTED" -ErrorAction SilentlyContinue).Count
+	$disconnected = (Get-RemoteSession -Pool_id $pool_id -State "DISCONNECTED" -ErrorAction SilentlyContinue | Measure-Object -Property session).Count
 	if (!$disconnected) {
 		$disconnected = 0
 	}
 
-	$connected = (Get-RemoteSession -Pool_id $pool_id -State "CONNECTED" -ErrorAction SilentlyContinue).Count
+	$connected = (Get-RemoteSession -Pool_id $pool_id -State "CONNECTED" -ErrorAction SilentlyContinue | Measure-Object -Property session).Count
 	if (!$connected) {
 		$connected = 0
 	}
