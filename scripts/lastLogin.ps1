@@ -37,3 +37,4 @@ foreach ($line in $lastLogin) {
 		$line
 	}
 }
+

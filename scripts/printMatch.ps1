@@ -17,3 +17,4 @@ foreach ($vm in Get-DesktopVM) {
 		echo $vm.name
 	}
 }
+

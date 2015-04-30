@@ -14,10 +14,10 @@
 #<name1>
 #<name2>
 $file = $folder + "scripts\iopsLimits.csv"
-$diskLimitIOPerSecond = 100
+$diskLimitIOPerSecond = 500
 
 "vmName" > $file
-. $folder"scripts\printMatch.ps1" vdidesktop >> $file
+. $folder"scripts\printMatch.ps1" "^vdi.." >> $file
 
 Connect-VIServer -Server $vcenter
 
@@ -44,3 +44,4 @@ foreach ($group in $vms){
 	}
 	$vm.ExtensionData.ReconfigVM_Task($spec)
 }
+

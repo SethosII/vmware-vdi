@@ -15,3 +15,4 @@ foreach ($vm in Get-DesktopVM) {
 }
 
 $list | Out-File -FilePath $folder"scripts\vmIP.csv" -encoding "UTF8"
+

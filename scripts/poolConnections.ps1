@@ -21,4 +21,6 @@ foreach ($pool in Get-Pool) {
 	$output = $date + "," + $disconnected + "," + $connected
 
 	Add-Content $folder"poolconnections\"$pool_id.csv "$output" -Encoding "UTF8"
+	Add-Content $remoteStore"poolconnections\"$pool_id.csv "$output" -Encoding "UTF8"
 }
+

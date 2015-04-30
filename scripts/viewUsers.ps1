@@ -14,3 +14,4 @@ foreach ($vm in Get-DesktopVM) {
 }
 
 $list | Out-File -FilePath $remoteStore"viewUsers.csv" -encoding "UTF8"
+

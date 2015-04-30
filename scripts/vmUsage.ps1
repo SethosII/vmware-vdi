@@ -9,14 +9,12 @@ $date = Get-Date -UFormat "%Y/%m/%d %T"
 $sessions = Get-RemoteSession -Pool_id desktoppool -ErrorAction SilentlyContinue
 $sessions += Get-RemoteSession -Pool_id performancepool -ErrorAction SilentlyContinue
 $sessions += Get-RemoteSession -Pool_id performancepool32bit -ErrorAction SilentlyContinue
-$sessions += Get-RemoteSession -Pool_id 1zu1panopool -ErrorAction SilentlyContinue
 $sessions += Get-RemoteSession -Pool_id fulldesktop -ErrorAction SilentlyContinue
 $sessions += Get-RemoteSession -Pool_id migratedesktop -ErrorAction SilentlyContinue
 
 $vms = Get-DesktopVM -Pool_id desktoppool
 $vms += Get-DesktopVM -Pool_id performancepool
 $vms += Get-DesktopVM -Pool_id performancepool32bit
-$vms += Get-DesktopVM -Pool_id 1zu1panopool
 $vms += Get-DesktopVM -Pool_id fulldesktop
 $vms += Get-DesktopVM -Pool_id migratedesktop
 
@@ -38,4 +36,6 @@ foreach ($vm in $vms) {
 	}
 	$output = $date + "," + $username
 	Add-Content $folder"vmusage\"$vmname.csv "$output" -Encoding "UTF8"
+	Add-Content $remoteStore"vmusage\"$vmname.csv "$output" -Encoding "UTF8"
 }
+

@@ -6,5 +6,8 @@
 
 foreach ($days in @(30,60,90)) {
 	$date = (Get-Date).addDays(-$days).toString("yyyy.MM.dd") -replace "\.", "/"
-	& $folder"scripts\lastLogin.ps1" $date > $folder"unused\"$days.txt
+	$list = & $folder"scripts\lastLogin.ps1" $date
+	$list | Out-File -FilePath $folder"unused\"$days.txt -encoding "UTF8"
+	$list | Out-File -FilePath $remoteStore"unused\"$days.txt -encoding "UTF8"
 }
+
