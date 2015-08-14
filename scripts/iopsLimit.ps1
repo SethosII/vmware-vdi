@@ -1,47 +1,29 @@
-# purpose: set a IOPS limit for all vms in a list
-#Param(
-#	[string]$DiskLimitIOPerSecond,
-#	[string]$File
-#)
-# Params disabled for scheduled task
+﻿# purpose: set an IOPS limit for all vms matching to a pattern
+Param(
+	[Parameter(Mandatory=$true)][string]$DiskLimitIOPerSecond,
+	[Parameter(Mandatory=$true)][string]$match
+)
 
 # load necessary plugin
 . "C:\Program Files\VMware\VMware View\Server\extras\PowerShell\add-snapin.ps1"
 . "C:\path\scripts\constants.ps1"
 
-# file layout
-#vmName
-#<name1>
-#<name2>
-$file = $folder + "scripts\iopsLimits.csv"
-$diskLimitIOPerSecond = 500
+# silently connect to the vCenter
+Connect-VIServer -Server $vcenter > $null
 
-"vmName" > $file
-. $folder"scripts\printMatch.ps1" "^vdi.." >> $file
-
-Connect-VIServer -Server $vcenter
-
-if ($file -eq "") {
-	echo "please specify a file with the vms to apply the limit to, first line has to be vmName"
-	exit
-}
-$vms = Import-Csv $file | Group-Object -Property vmName
-
-if ($DiskLimitIOPerSecond -eq "") {
-	echo "please specify a IOPS limit to apply to the specified vms, the value will be applied to all disks, provide -1 to remove the limit"
-	exit
-}
-
-foreach ($group in $vms){
-	$vm = Get-VM -Name $group.Name
+foreach ($vm in (Get-VM) -match $match){
 	$spec = New-Object VMware.Vim.VirtualMachineConfigSpec
-	$vm.ExtensionData.Config.Hardware.Device | where {$_ -is [VMware.Vim.VirtualDisk]} | %{
+	
+	# get all disks and set the new IOPS limit
+	$disks = $vm.ExtensionData.Config.Hardware.Device | where {$_ -is [VMware.Vim.VirtualDisk]}
+	foreach ($disk in $disks) {
 		$dev = New-Object VMware.Vim.VirtualDeviceConfigSpec
 		$dev.Operation = "edit"
-		$dev.Device = $_
+		$dev.Device = $disk
 		$dev.Device.StorageIOAllocation.Limit = $diskLimitIOPerSecond
 		$spec.DeviceChange += $dev
 	}
+
+	# reconfigure vms asynchronously
 	$vm.ExtensionData.ReconfigVM_Task($spec)
 }
-
