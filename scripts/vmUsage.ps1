@@ -19,7 +19,7 @@ foreach ($vm in $vms) {
 
 	# get vm dns name
 	$vmname = $vm.HostName
-	
+
 	# check if vm has an active session and get the user name
 	foreach ($session in $sessions) {
 		if ($vmname -eq $session.DNSName ) {
