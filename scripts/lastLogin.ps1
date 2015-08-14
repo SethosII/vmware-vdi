@@ -10,18 +10,21 @@ Param(
 # silently connect to the vCenter
 Connect-VIServer -Server $vcenter > $null
 
+# get all files
 $usageFileLocation = $folder + "vmusage\"
 $files = Get-ChildItem $usageFileLocation
 
-$lastLogin = ""
+# lastLogin is an array
+$lastLogin = @()
+
+# get last login for each file
 foreach ($file in $files) {
-	$lastLogin += "$file".Split(".")[0] + " : "
-	$lastLogin += Get-Content "$usageFileLocation$file" | Select-String -NotMatch $exclude -Encoding UTF8 | Select -last 1
-	$lastLogin += "`n"
+	# store data like vdi1 : 2015/01/01 00:00:00,domain.local\user
+	$lastLogin += $file.Name.Split(".")[0] + " : " + (Get-Content "$usageFileLocation$file" | Select-String -NotMatch $exclude -Encoding UTF8 | Select -Last 1)
 }
 
-$vms = Get-DesktopVM -Name vdi*
-$lastLogin = $lastLogin.Split("`n")
+# cache all vms for faster execution
+$vms = Get-VM
 
 foreach ($line in $lastLogin) {
 	$dateLine = $line.Split(" ")[2]
@@ -31,10 +34,12 @@ foreach ($line in $lastLogin) {
 	}
 
 	$name = $line.Split(" ")[0]
-	$line += " " + ($vms | Select-Object Name, Description | where {$_.name -match $name}).Description
 
-	if ((Get-Date $dateLine) -lt (Get-Date $date)) {
+	# add notes of each vm, new-line is replaced with a space
+	$line += " " + ($vms | where {$_.name -match $name}).Notes -replace "\n"," "
+
+	# print all vms not used for at least the specified amount days and still exist
+	if ((Get-Date $dateLine) -lt (Get-Date $date) -and ($vms | where { $_.name -match $name})) {
 		$line
 	}
 }
-
