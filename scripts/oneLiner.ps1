@@ -3,6 +3,12 @@
 # connect to vCenter
 Connect-VIServer -Server "server"
 
+# connect to the view broker remotely
+Enter-PSSession -ComputerName "viewBroker" -Credential (Get-Credential)
+
+# open vm console from powershell in browser window (needs browser plugin)
+Open-VMConsoleWindow -VM "vmName"
+
 # move vms between datastores (with shutdown of guest and start afterwards
 foreach ($vm in Get-VM -Datastore "oldDatastore") {Shutdown-VMGuest -VM $vm -Confirm:$false; Move-VM -VM $vm -Datastore (Get-Datastore -Name "newDatastore") ; Start-VM -VM $vm -Confirm:$false}
 
