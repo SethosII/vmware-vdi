@@ -18,5 +18,5 @@ foreach ($vm in Get-DesktopVM) {
 }
 
 # store the data
-$list | Out-File -FilePath $folder"viewUsers.csv" -encoding "UTF8"
-$list | Out-File -FilePath $remoteStore"viewUsers.csv" -encoding "UTF8"
+$list | Out-File -FilePath $folder"viewUsers.csv" -Encoding "UTF8"
+$list | Out-File -FilePath $remoteStore"viewUsers.csv" -Encoding "UTF8"

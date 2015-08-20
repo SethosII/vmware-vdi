@@ -19,5 +19,5 @@ foreach ($vm in Get-DesktopVM) {
 }
 
 # store the data
-$list | Out-File -FilePath $folder"vmIP.csv" -encoding "UTF8"
-$list | Out-File -FilePath $remoteStore"vmIP.csv" -encoding "UTF8"
+$list | Out-File -FilePath $folder"vmIP.csv" -Encoding "UTF8"
+$list | Out-File -FilePath $remoteStore"vmIP.csv" -Encoding "UTF8"

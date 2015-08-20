@@ -36,10 +36,10 @@ foreach ($line in $lastLogin) {
 	$name = $line.Split(" ")[0]
 
 	# add notes of each vm, new-line is replaced with a space
-	$line += " " + ($vms | where {$_.name -eq $name}).Notes -replace "\n"," "
+	$line += " " + ($vms | where {$_.Name -eq $name}).Notes -replace "\n"," "
 
 	# print all vms not used for at least the specified amount days and still exist
-	if ((Get-Date $dateLine) -lt (Get-Date $date) -and ($vms | where { $_.name -match $name})) {
+	if ((Get-Date $dateLine) -lt (Get-Date $date) -and ($vms | where { $_.Name -match $name})) {
 		$line
 	}
 }

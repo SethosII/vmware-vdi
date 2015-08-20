@@ -8,7 +8,7 @@ Param(
 . "C:\path\scripts\constants.ps1"
 
 foreach ($vm in Get-DesktopVM) {
-	if ($vm.name -match $match) {
-		echo $vm.name
+	if ($vm.Name -match $match) {
+		echo $vm.Name
 	}
 }
