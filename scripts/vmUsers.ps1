@@ -1,4 +1,4 @@
-﻿# purpose: print all users that connected in the last x days
+# purpose: print all users that connected in the last x days
 Param(
 	[string]$date = ((Get-Date).addDays(-150).toString("yyyy.MM.dd") -replace "\.","/")
 )

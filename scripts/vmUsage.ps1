@@ -1,4 +1,4 @@
-﻿# purpose: logs the currently connected user for each vm in all pools
+# purpose: logs the currently connected user for each vm in all pools
 
 # load necessary plugin
 . "C:\Program Files\VMware\VMware View\Server\extras\PowerShell\add-snapin.ps1"

@@ -1,4 +1,4 @@
-﻿# documentation: https://www.vmware.com/support/developer/PowerCLI/index.html
+# documentation: https://www.vmware.com/support/developer/PowerCLI/index.html
 
 # connect to vCenter
 Connect-VIServer -Server "server"

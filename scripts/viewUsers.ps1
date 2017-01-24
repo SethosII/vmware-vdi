@@ -1,4 +1,4 @@
-﻿# purpose: outputs a .csv file containing all VMs associated with a user and their entitled users
+# purpose: outputs a .csv file containing all VMs associated with a user and their entitled users
 
 # load necessary plugin
 . "C:\Program Files\VMware\VMware View\Server\extras\PowerShell\add-snapin.ps1"

@@ -1,4 +1,4 @@
-﻿# purpose: store all vms without login for 30/60/90/120/150 days
+# purpose: store all vms without login for 30/60/90/120/150 days
 
 # load necessary plugin
 . "C:\Program Files\VMware\VMware View\Server\extras\PowerShell\add-snapin.ps1"

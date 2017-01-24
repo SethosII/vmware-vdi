@@ -1,4 +1,4 @@
-﻿# purpose: remove all pool entitlements without an assigned vm
+# purpose: remove all pool entitlements without an assigned vm
 
 # load necessary plugin
 . "C:\Program Files\VMware\VMware View\Server\extras\PowerShell\add-snapin.ps1"
