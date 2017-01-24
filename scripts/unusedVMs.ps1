@@ -11,6 +11,6 @@ foreach ($days in @(30,60,90,120,150)) {
 	$list = & $folder"scripts\lastLogin.ps1" $date
 
 	# store the data
-	$list | Out-File -FilePath $folder"unused\"$days.txt -Encoding "UTF8"
-	$list | Out-File -FilePath $remoteStore"unused\"$days.txt -Encoding "UTF8"
+	$list | Out-File -FilePath $folder"unused\"$days".txt" -Encoding "UTF8"
+	$list | Out-File -FilePath $remoteStore"unused\"$days".txt" -Encoding "UTF8"
 }

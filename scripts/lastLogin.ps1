@@ -20,7 +20,7 @@ $lastLogin = @()
 # get last login for each file
 foreach ($file in $files) {
 	# store data like vdi1 : 2015/01/01 00:00:00,domain.local\user
-	$lastLogin += $file.Name.Split(".")[0] + " : " + (Get-Content "$usageFileLocation$file" | Select-String -NotMatch $exclude -Encoding UTF8 | Select -Last 1)
+	$lastLogin += $file.Name.Split(".")[0] + " : " + (Get-Content "$usageFileLocation$file" | Select-String -NotMatch $exclude -Encoding "UTF8" | Select -Last 1)
 }
 
 # cache all vms for faster execution

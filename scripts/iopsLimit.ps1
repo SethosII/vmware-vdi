@@ -1,4 +1,4 @@
-﻿# purpose: set an IOPS limit for all vms in a list
+# purpose: set an IOPS limit for all vms matching to a pattern
 Param(
 	[Parameter(Mandatory=$true)][string]$DiskLimitIOPerSecond,
 	[Parameter(Mandatory=$true)][string]$match
@@ -12,12 +12,12 @@ Param(
 Connect-VIServer -Server $vcenter > $null
 
 foreach ($vm in (Get-VM) -match $match){
-	$spec = New-Object VMware.Vim.VirtualMachineConfigSpec
+	$spec = New-Object "VMware.Vim.VirtualMachineConfigSpec"
 
 	# get all disks and set the new IOPS limit
 	$disks = $vm.ExtensionData.Config.Hardware.Device | where {$_ -is [VMware.Vim.VirtualDisk]}
 	foreach ($disk in $disks) {
-		$dev = New-Object VMware.Vim.VirtualDeviceConfigSpec
+		$dev = New-Object "VMware.Vim.VirtualDeviceConfigSpec"
 		$dev.Operation = "edit"
 		$dev.Device = $disk
 		$dev.Device.StorageIOAllocation.Limit = $diskLimitIOPerSecond

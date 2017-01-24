@@ -11,14 +11,14 @@ foreach ($pool in Get-Pool) {
 	$pool_id = $pool.pool_id
 
 	# get all disconnected sessions
-	$disconnected = (Get-RemoteSession -Pool_id $pool_id -State "DISCONNECTED" -ErrorAction SilentlyContinue | Measure-Object -Property session).Count
+	$disconnected = (Get-RemoteSession -Pool_id $pool_id -State "DISCONNECTED" -ErrorAction "SilentlyContinue" | Measure-Object -Property "session").Count
 	if (!$disconnected) {
 		# interpret none as zero
 		$disconnected = 0
 	}
 
 	# get all connected sessions
-	$connected = (Get-RemoteSession -Pool_id $pool_id -State "CONNECTED" -ErrorAction SilentlyContinue | Measure-Object -Property session).Count
+	$connected = (Get-RemoteSession -Pool_id $pool_id -State "CONNECTED" -ErrorAction "SilentlyContinue" | Measure-Object -Property "session").Count
 	if (!$connected) {
 		# interpret none as zero
 		$connected = 0
@@ -26,6 +26,6 @@ foreach ($pool in Get-Pool) {
 
 	# store data like 2015/01/01 00:00:00,20,10
 	$output = $date + "," + $disconnected + "," + $connected
-	Add-Content $folder"poolconnections\"$pool_id.csv "$output" -Encoding "UTF8"
-	Add-Content $remoteStore"poolconnections\"$pool_id.csv "$output" -Encoding "UTF8"
+	Add-Content $folder"poolconnections\"$pool_id".csv" "$output" -Encoding "UTF8"
+	Add-Content $remoteStore"poolconnections\"$pool_id".csv" "$output" -Encoding "UTF8"
 }

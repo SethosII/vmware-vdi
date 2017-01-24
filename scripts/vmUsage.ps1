@@ -9,7 +9,7 @@ $date = Get-Date -UFormat "%Y/%m/%d %T"
 
 # get all vms and sessions of all pools
 foreach ($pool in Get-Pool) {
-	$sessions += Get-RemoteSession -Pool_id $pool.pool_id -ErrorAction SilentlyContinue
+	$sessions += Get-RemoteSession -Pool_id $pool.pool_id -ErrorAction "SilentlyContinue"
 	$vms += Get-DesktopVM -Pool_id $pool.pool_id
 }
 
