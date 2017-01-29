@@ -19,27 +19,33 @@ $lastLogin = @()
 
 # get last login for each file
 foreach ($file in $files) {
-	# store data like vdi1 : 2015/01/01 00:00:00,domain.local\user
-	$lastLogin += $file.Name.Split(".")[0] + " : " + (Get-Content "$usageFileLocation$file" | Select-String -NotMatch $exclude -Encoding "UTF8" | Select -Last 1)
+	$name = $file.Name.Split(".")[0]
+	$dateAndUser = Get-Content "$usageFileLocation$file" | Select-String -NotMatch $exclude -Encoding "UTF8" | Select -Last 1
+	if (!$dateAndUser) {
+		$dateAndUser = (Get-Content "$usageFileLocation$file")[0]
+	}
+
+	# store data like vdi1,2015/01/01 00:00:00,domain.local\user
+	$lastLogin += $name + "," + $dateAndUser
 }
 
 # cache all vms for faster execution
 $vms = Get-VM
 
 foreach ($line in $lastLogin) {
-	$dateLine = $line.Split(" ")[2]
+	$dateLine = $line.Split(",")[1].Split(" ")[0]
 	if (!$dateLine) {
 		# set empty date to start of logging
 		$dateLine = $beginningOfLogging
 	}
 
-	$name = $line.Split(" ")[0]
+	$name = $line.Split(",")[0]
 
 	# add notes of each vm, new-line is replaced with a space
-	$line += " " + ($vms | where {$_.Name -eq $name}).Notes -replace "\n"," "
+	$line += "," + ($vms | where {$_.Name -eq $name}).Notes -replace "\n"," "
 
 	# print all vms not used for at least the specified amount days and still exist
-	if ((Get-Date $dateLine) -lt (Get-Date $date) -and ($vms | where { $_.Name -match $name})) {
+	if ((Get-Date $dateLine) -lt (Get-Date $date) -and ($vms | where { $_.Name -eq $name})) {
 		$line
 	}
 }
