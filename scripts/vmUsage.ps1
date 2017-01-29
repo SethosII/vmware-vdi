@@ -20,15 +20,18 @@ foreach ($vm in $vms) {
 	# get vm dns name
 	$vmname = $vm.HostName
 
-	# check if vm has an active session and get the user name
-	foreach ($session in $sessions) {
-		if ($vmname -eq $session.DNSName ) {
-			$username = $session.Username
+	# gather statistics only for deployed vms
+	if ($vmname -match $domain) {
+		# check if vm has an active session and get the user name
+		foreach ($session in $sessions) {
+			if ($vmname -eq $session.DNSName ) {
+				$username = $session.Username
+			}
 		}
-	}
 
-	# store data like 2015/01/01 00:00:00,domain.local\user
-	$output = $date + "," + $username
-	Add-Content $folder"vmusage\"$vmname.csv "$output" -Encoding "UTF8"
-	Add-Content $remoteStore"vmusage\"$vmname.csv "$output" -Encoding "UTF8"
+		# store data like 2015/01/01 00:00:00,domain.local\user
+		$output = $date + "," + $username
+		Add-Content $folder"vmusage\"$vmname".csv" "$output" -Encoding "UTF8"
+		Add-Content $remoteStore"vmusage\"$vmname".csv" "$output" -Encoding "UTF8"
+	}
 }
