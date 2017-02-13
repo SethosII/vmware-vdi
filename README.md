@@ -21,6 +21,8 @@ scripts
 	- remove all pool entitlements without an assigned vm
 - constants.ps1
 	- contains shared variables for all scripts
+- diskUsage.ps1
+	- get virtual disk usage, sorted by "wasted" space (space used according to vsphere minus space used according to windows)
 - iopsLimit.ps1
 	- sets an IOPS limit for all vms matching to a pattern
 - lastLogin.ps1
